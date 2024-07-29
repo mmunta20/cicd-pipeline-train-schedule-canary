@@ -4,9 +4,8 @@ pipeline {
         //be sure to replace "willbla" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "mmunta20/train-schedule"
     }
-    
-        }
-        stage('Build Docker Image') {
+
+     stage('Build Docker Image') {
             when {
                 branch 'master'
             }
@@ -70,4 +69,4 @@ pipeline {
                 }
             }
         }
-    }
+    
