@@ -31,7 +31,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhublogin') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
@@ -47,7 +47,7 @@ pipeline {
             }
             staps {
                 kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
+                    kubeconfigId: 'my-kubeconfig',
                     configs: 'train-schedule-kube-canary.yml',
                     enableConfigSubstitution: true
             }
@@ -62,12 +62,12 @@ pipeline {
                 input 'Deploy to Production?'
                 milestone(1)
                     kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
+                    kubeconfigId: 'my-kubeconfig',
                     configs: 'train-schedule-kube-canary.yml',
                     enableConfigSubstitution: true
                     )
                     kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
+                    kubeconfigId: 'my-kubeconfig',
                     configs: 'train-schedule-kube.yml',
                     enableConfigSubstitution: true
                     )
